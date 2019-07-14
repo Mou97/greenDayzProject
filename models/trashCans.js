@@ -1,9 +1,11 @@
-import mongoose, { mongo } from 'mongoose'
+const mongoose = require('mongoose')
 
 const trashCansSchema = new mongoose.Schema({
+    trash_id: {
+        type: String
+    },
     position: {
         type: String,
-        required: true
     },
     address: {
         type: String
@@ -13,10 +15,10 @@ const trashCansSchema = new mongoose.Schema({
         default: false
     },
     filled: {
-        type: Number,
+        type: String,
         default: '0'
     }
 })
 
 const TrashCan = mongoose.model("TashCan", trashCansSchema)
-export default TrashCan
+module.exports = TrashCan

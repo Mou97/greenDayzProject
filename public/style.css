@@ -1,0 +1,40 @@
+body {
+  background: #ececec;
+  font-family: "Arial Narrow", sans-serif;
+  text-align: center;
+  font-weight: bold;
+  font-family: 'PT Sans Caption', sans-serif;
+}
+
+.stat-group {
+  position: relative;
+  display: inline-block;
+  height: 150px;
+  width: 150px;
+}
+.stat-group .per {
+  position: absolute;
+  height: 0;
+  line-height: 0;
+  width: 100%;
+  top: 50%;
+  font-size: 2em;
+  text-align: center;
+  color: #000;
+  opacity: 0.8;
+}
+
+.rerun {
+  position: absolute;
+  top: 0;
+  right: 0;
+  text-decoration: none;
+  padding: 1em;
+  background-color: #ccc;
+  color: #fff;
+  border-radius: 0 0 0 .5em;
+  transition: background-color 300ms;
+}
+.rerun:hover {
+  background-color: #249daa;
+}

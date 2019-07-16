@@ -1,11 +1,31 @@
-<html lang="en">
-<head>
+<!DOCTYPE html>
+<html lang="en" >
+    <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>something</title>
-</head>
-<body>
-    <h1>server works</h1>
-</body>
+    <title>Rasperry Pi</title>
+        <link rel="stylesheet" href="./style.css">
+    </head>
+
+    <body>
+        <div class="stat-group">
+            <div class="per">59%</div>
+            <svg class="svg"></svg>
+        </div>
+
+        <div class="stat-group">
+            <div class="per">75%</div>
+            <svg class="svg"></svg>
+        </div>
+
+        <div class="stat-group">
+            <div class="per">100%</div>
+            <svg class="svg"></svg>
+        </div>
+
+        <a href="javascript:void(0);" id="rerun" class="rerun">re-run</a>
+        <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+        <script src='http://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.1.0/snap.svg-min.js'></script>
+        <script  src="./script.js"></script>
+    </body>
+
 </html>

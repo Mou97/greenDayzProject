@@ -28,7 +28,7 @@ app.use(bodyParser.json())
 
 //views 
 app.use(require('express-edge'))
-app.set('views', path.join(__dirname, 'views'))
+app.set('views', path.join(__dirname, '/views'))
 //-------------------------------------------------------------
 //web sockets
 const server = http.createServer(app)
@@ -85,7 +85,8 @@ mongoose.connect(db, { useNewUrlParser: true, useFindAndModify: false }, () => {
 
 //routes
 app.get('/', (req, res) => {
-    res.send('server works')
+    console.log('render view')
+    res.render('index.edge')
 })
 app.post('/addtrashcan', addCanController)
 

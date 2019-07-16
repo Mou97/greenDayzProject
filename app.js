@@ -18,6 +18,7 @@ const db = require('./config/database').db
 //import controllers
 const addCanController = require('./controlers/addCan')
 const getDataController = require('./controlers/getData')
+const getGeoDataController = require('./controlers/getgeo')
 
 //import schemas 
 const TrashCan = require('./models/trashCans')
@@ -88,7 +89,6 @@ app.get('/', (req, res) => {
     console.log('render view')
     res.render('index')
 });
-
 app.get('/api/getdata', getDataController)
 
 app.post('/addtrashcan', addCanController)

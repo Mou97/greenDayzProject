@@ -41,28 +41,32 @@ const client = mqtt.connect(mqtt_url, { username: 'wdvebxdg', password: 'QMlVLEu
 client.on('connect', () => {
     client.subscribe(topic, (err) => {
         console.log('subed')
-        if (!err) {
-
-            //example TODO: delete this 
-            let msg = {
-                trash_id: '1',
-                filled: 70,
-            }
-            // publish
-            client.publish(topic, JSON.stringify(msg))
-        }
     })
 })
 
 client.on('message', async (topic, message) => {
-    console.log(message.toString());
+    // console.log(message.toString());
     message = JSON.parse(message)
+    console.log(message)
     //save to db if there is a change
     try {
+        message.sensor1 == 100 ? message.isFull_1 = true : message.isFull_1 = false
+        message.sensor2 == 100 ? message.isFull_2 = true : message.isFull_2 = false
+        message.sensor3 == 100 ? message.isFull_3 = true : message.isFull_3 = false
 
-        const result = await TrashCan.findOneAndUpdate({ trash_id: message.trash_id }, { $set: { filled: message.filled } }, { new: true })
-        if (result) {
-            console.log(result + ' is saved to the db')
+
+        const result1 = await TrashCan.findOneAndUpdate({ trash_id: 1 }, { $set: { filled: message.sensor1, isFull: message.isFull_1 } }, { new: true })
+        const result2 = await TrashCan.findOneAndUpdate({ trash_id: 2 }, { $set: { filled: message.sensor2, isFull: message.isFull_2 } }, { new: true })
+        const result3 = await TrashCan.findOneAndUpdate({ trash_id: 3 }, { $set: { filled: message.sensor3, isFull: message.isFull_3 } }, { new: true })
+
+        if (result1) {
+            console.log(result1 + ' is saved to the db')
+        }
+        if (result2) {
+            console.log(result2 + ' is saved to the db')
+        }
+        if (result3) {
+            console.log(result3 + ' is saved to the db')
         }
 
 

@@ -4,7 +4,6 @@ const bodyParser = require('body-parser')
 const http = require('http')
 const path = require('path');
 const mqtt = require('mqtt')
-const ws = require('ws')
 
 //init the app
 const app = express()

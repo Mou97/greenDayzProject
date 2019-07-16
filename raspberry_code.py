@@ -42,6 +42,6 @@ while True :
     # convert the data to JSON
     data = json.dumps(msg)
 
-    print(str(data))
+    # send to the broker
     client.publish(topic,str(data))
     time.sleep(1*60)

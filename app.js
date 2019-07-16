@@ -26,7 +26,9 @@ const TrashCan = require('./models/trashCans')
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-
+//views 
+app.use(require('express-edge'))
+app.set('views', path.join(__dirname, 'views'))
 //-------------------------------------------------------------
 //web sockets
 const server = http.createServer(app)

@@ -83,7 +83,6 @@ mongoose.connect(db, { useNewUrlParser: true, useFindAndModify: false }, () => {
 }).catch(err => console.log(err));
 
 //routes
-console.log("sdf");
 app.get('/', (req, res) => {
     console.log('render view')
     res.render('index')

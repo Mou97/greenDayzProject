@@ -17,6 +17,7 @@ const db = require('./config/database').db
 
 //import controllers
 const addCanController = require('./controlers/addCan')
+const getDataController = require('./controlers/getData')
 
 //import schemas 
 const TrashCan = require('./models/trashCans')
@@ -88,7 +89,11 @@ app.get('/', (req, res) => {
     console.log('render view')
     res.render('index')
 });
+
+app.get('/api/getdata', getDataController)
+
 app.post('/addtrashcan', addCanController)
+
 
 server.listen(3000, () => {
     console.log('server started on port 3000')

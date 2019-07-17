@@ -5,6 +5,9 @@ const http = require('http')
 const path = require('path');
 const mqtt = require('mqtt')
 
+
+const TrashCans = require('./models/trashCans')
+
 //init the app
 const app = express()
 
@@ -84,8 +87,10 @@ mongoose.connect(db, { useNewUrlParser: true, useFindAndModify: false }, () => {
 }).catch(err => console.log(err));
 
 //routes
-app.get('/', (req, res) => {
-    res.render('index');
+app.get('/', async (req, res) => {
+    const cans = await TrashCans.find({});
+    console.log(cans);
+    res.render('index', { cans });
 });
 app.get('/api/getdata', getDataController)
 

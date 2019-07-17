@@ -38,3 +38,12 @@ body {
 .rerun:hover {
   background-color: #249daa;
 }
+.counter{
+  display: inline-block;
+}
+.counter h4{
+  margin-top: -6px;
+}
+*{
+  font-family: 'Roboto', sans-serif;
+}

@@ -38,8 +38,9 @@ const server = http.createServer(app)
 
 // connecting to the broker
 const mqtt_url = require('./config/database').mqtt
+const mqttInfo = require('./config/mqttInfo').mqtt
 const topic = 'sensors/sensor'
-const client = mqtt.connect(mqtt_url, { username: 'wdvebxdg', password: 'QMlVLEusK9yU', port: 12313 })
+const client = mqtt.connect(mqtt_url, { username: mqttInfo.username, password: mqttInfo.username, port: 12313 })
 
 //----------------------------------------------------------------------
 //mqtt events 

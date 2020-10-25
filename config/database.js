@@ -1,5 +1,5 @@
 module.exports = {
-    db: "mongodb://USERNAME:PASS@ds149947.mlab.com:49947/raspberry",
-    mqtt: 'mqtt://postman.cloudmqtt.com'
+    db: "mongodb://localhost:27017/raspberry",
+    mqtt: 'mqtt://broker.mqttdashboard.com'
 }
 

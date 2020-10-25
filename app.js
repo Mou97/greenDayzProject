@@ -6,8 +6,6 @@ const path = require('path');
 const mqtt = require('mqtt')
 
 
-const TrashCans = require('./models/trashCans')
-
 //init the app
 const app = express()
 
@@ -39,14 +37,20 @@ const server = http.createServer(app)
 // connecting to the broker
 const mqtt_url = require('./config/database').mqtt
 const mqttInfo = require('./config/mqttInfo').mqtt
-const topic = 'sensors/sensor'
-const client = mqtt.connect(mqtt_url, { username: mqttInfo.username, password: mqttInfo.username, port: 12313 })
+const topics = ['esisbaprojtest/1', 'esisbaprojtest/2', "esisbaprojtest/3"]
+const client = mqtt.connect(mqtt_url)
 
 //----------------------------------------------------------------------
 //mqtt events 
 client.on('connect', () => {
-    client.subscribe(topic, (err) => {
-        console.log('subed')
+    client.subscribe(topics[0], (err) => {
+        console.log('subed1')
+    })
+    client.subscribe(topics[1], (err) => {
+        console.log('subed2')
+    })
+    client.subscribe(topics[2], (err) => {
+        console.log('subed3')
     })
 })
 
@@ -56,23 +60,19 @@ client.on('message', async (topic, message) => {
     console.log(message)
     //save to db if there is a change
     try {
-        message.sensor1 == 100 ? message.isFull_1 = true : message.isFull_1 = false
-        message.sensor2 == 100 ? message.isFull_2 = true : message.isFull_2 = false
-        message.sensor3 == 100 ? message.isFull_3 = true : message.isFull_3 = false
+        switch (topic) {
+            case "esisbaprojtest/1":
+                await TrashCan.findOneAndUpdate({ trash_id: '1' }, { $set: { filled: message, isFull: message == 100 } }, { new: true })
+                break;
 
+            case "esisbaprojtest/2":
+                await TrashCan.findOneAndUpdate({ trash_id: '2' }, { $set: { filled: message, isFull: message == 100 } }, { new: true })
+                break;
 
-        const result1 = await TrashCan.findOneAndUpdate({ trash_id: 1 }, { $set: { filled: message.sensor1, isFull: message.isFull_1 } }, { new: true })
-        const result2 = await TrashCan.findOneAndUpdate({ trash_id: 2 }, { $set: { filled: message.sensor2, isFull: message.isFull_2 } }, { new: true })
-        const result3 = await TrashCan.findOneAndUpdate({ trash_id: 3 }, { $set: { filled: message.sensor3, isFull: message.isFull_3 } }, { new: true })
+            case "esisbaprojtest/3":
+                await TrashCan.findOneAndUpdate({ trash_id: '3' }, { $set: { filled: message, isFull: message == 100 } }, { new: true })
+                break;
 
-        if (result1) {
-            console.log(result1 + ' is saved to the db')
-        }
-        if (result2) {
-            console.log(result2 + ' is saved to the db')
-        }
-        if (result3) {
-            console.log(result3 + ' is saved to the db')
         }
 
 
@@ -83,14 +83,13 @@ client.on('message', async (topic, message) => {
 })
 
 //connect to the db
-mongoose.connect(db, { useNewUrlParser: true, useFindAndModify: false }, () => {
+mongoose.connect(db, { useNewUrlParser: true, useFindAndModify: false, useFindAndModify: false }, () => {
     console.log('database connected')
 }).catch(err => console.log(err));
 
 //routes
 app.get('/', async (req, res) => {
-    const cans = await TrashCans.find({});
-    console.log(cans);
+    const cans = await TrashCan.find({});
     res.render('index', { cans });
 });
 app.get('/api/getdata', getDataController)

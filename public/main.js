@@ -1,16 +1,21 @@
 var pers = $(".per");
 var prev1 = 0
+var prev2 = 0
+var prev3 = 0
+var selector = ".stat-group"
+
 //get data
 function getData() {
-    console.log('getting data');
     $.ajax({
         url: '/api/getdata',
         method: 'GET',
         contentType: 'application/json',
         success: function (result) {
+            prev1 = parseInt(pers[0].innerHTML.replace("%", ""));
             pers[0].innerHTML = result.trash1 + "%";
-            prev1 = parseInt(result.trash1);
+            prev2 = parseInt(pers[1].innerHTML.replace("%", ""));
             pers[1].innerHTML = result.trash2 + "%";
+            prev3 = parseInt(pers[2].innerHTML.replace("%", ""));
             pers[2].innerHTML = result.trash3 + "%";
             stat();
             setTimeout(getData, 3000);
@@ -23,9 +28,7 @@ setTimeout(getData, 3000);
 
 var stat = function () {
     //for each group of stats
-    var percentages = $(".per");
-    $('.stat-group').each(function () {
-
+    $(selector).each(function () {
         //cache some stuff
         that = $(this);
         var svgObj = that.find('.svg');
@@ -66,19 +69,25 @@ var stat = function () {
             arc: arc,
             circle: circle
         };
-
+        var prev;
+        if ($(this).attr("class") == "stat-group g1")
+            prev = prev1;
+        if ($(this).attr("class") == "stat-group g2")
+            prev = prev2;
+        if ($(this).attr("class") == "stat-group g3")
+            prev = prev3;
         //call the animation
-        run(stat);
+        run(stat, prev);
 
     });
 
     //animation function
-    function run(stat) {
+    function run(stat, prev) {
 
         //establish the animation end point
         var endpoint = stat.per * 360;
         //set up animation (from, to, setter)
-        Snap.animate(prev1 * 3.6, endpoint, function (val) {
+        Snap.animate(prev * 3.6, endpoint, function (val) {
 
             //remove the previous arc
             stat.arc.remove();
